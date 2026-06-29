@@ -6,7 +6,10 @@ executables can be used (ffmpeg, custom pytho scripts )
 database: SQLite database for persistence
 Client: Vanilla JavaScript + HTML
 communcation: WebSocket for real-time client-server communication
-
+testing: 
+client UI smoke tests
+server side code: denojs test scripts
+server side executables: test directly over CLI
 
 Imporant GUI things to consider: 
 see also [](UI.md)

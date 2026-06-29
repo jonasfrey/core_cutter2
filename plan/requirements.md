@@ -20,3 +20,13 @@ each functionality has a name and a shortcut assigned, shortcuts can be changed 
 a project can be exported to a video . this will be simply all o_video section clips concatenated. 
 
 
+
+
+video player functionalities. 
+generate buttons for play and pause. 
+a range slider for the speed + - 1x - 10x speed, step 0.2. 
+
+a range slider for the 'zoom' from 2 seconds to 30 minutes. 
+ buttons for zoom presets , 10sec ,2 min, 10 min.  
+
+by clicking into the playhead timeline the video and playhead should jump to the clicked position. 
