@@ -15,6 +15,8 @@ The browser is not limited by its functionalities, it can access (theoretically 
 do not rely on browser limitated function like using the html file browser, prefer to create a custom file browser with 'ls' executable on the server. 
 
 
+CODING GUIDELINES: please adhere to the coding guidelines , they are very important
+
 
 Communication Standards
 Server <-> Client:
@@ -89,3 +91,6 @@ Client ← WebSocket ← Deno Server ← Python Script (stdout stream)
 # licensing 
 see [](licensind.md)
 
+
+
+CODING RULES: please adhere to the coding guidelines , they are very important

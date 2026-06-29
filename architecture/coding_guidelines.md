@@ -287,3 +287,5 @@ let f_s_env__example = function(s_uuid) {
 
 ## comments
 use comments as little as possible. the variable names should imply as much information as possible so that comments become reduntant and do not have to be used. 
+
+CODING RULES: please adhere to the coding guidelines , they are very important
