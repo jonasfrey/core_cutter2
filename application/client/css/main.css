@@ -10,6 +10,10 @@ html, body {
    background: #1e1e1e;
    color: #ddd;
 }
+#el_root,
+#el_app {
+   height: 100%;
+}
 
 #el_topbar {
    height: 36px;
@@ -33,6 +37,10 @@ html, body {
 }
 #el_topbar button:hover {
    background: #484848;
+}
+#el_topbar button.el_nav__active {
+   background: #2d3a4a;
+   border-color: #3a5a7a;
 }
 
 #el_desktop {

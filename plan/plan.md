@@ -34,9 +34,21 @@ marker nearest the playhead; section + marker overlays on the timeline (green
 highlights, yellow ticks); a **Sections** window listing clips with delete; a
 reusable keyboard-shortcut dispatcher (`f_shortcut.js`) ready for Phase 4.
 
+**Done — Vue migration:** the client was rebuilt on Vue 3 (Composition API only,
+no build step — vendored `vue.esm-browser.js` via an import map). Reactive stores
+(`client/js/store/use_*.js`) replace the old pub/sub modules; UI is components
+(`client/js/components/*.js`) with `setup()` + template strings; `f_ws.js`,
+`f_shortcut.js`, `f_util.js` are shared. Tests added: `deno task test` runs a
+client template-compile smoke test + server cursor-mapping unit tests.
+`deno task rmdb` clears the DB.
+
 **Next — Phase 4** (shortcut registry UI + Settings window, persisted in `o_key_val`),
 then **Phase 5** (export: ffmpeg trim per section + concat → mp4/h264),
 **Phase 6** (polish).
+
+**Remaining architecture items:** `deno task start` should auto-install ffmpeg/deps
+and download test data if missing; a full browser-driven UI smoke test (current
+smoke test only compiles templates, doesn't render in a real browser).
 
 **Known follow-ups / not yet done:** in-browser visual verification of the player
 (built to spec, validated by logic + server contracts, not yet driven in a real

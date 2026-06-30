@@ -1,11 +1,17 @@
 {
+   "imports": {
+      "vue": "./client/vendor/vue.esm-browser.js"
+   },
    "tasks": {
       "dev": "deno run --allow-net --allow-read --allow-write --allow-env --allow-run server/main.js",
-      "start": "deno run --allow-net --allow-read --allow-write --allow-env --allow-run server/main.js"
+      "start": "deno run --allow-net --allow-read --allow-write --allow-env --allow-run server/main.js",
+      "test": "deno test --allow-net --allow-read --allow-write --allow-env --allow-run",
+      "rmdb": "rm -f .gitignored/app.db .gitignored/app.db-shm .gitignored/app.db-wal"
    },
    "fmt": {
       "useTabs": false,
       "indentWidth": 3,
-      "lineWidth": 100
+      "lineWidth": 100,
+      "exclude": ["client/vendor"]
    }
 }
