@@ -23,6 +23,11 @@ let f_set = function (s_key, s_val) {
    }
 };
 
+let f_s_val = function (s_key) {
+   let o_row = f_o_query__one("SELECT s_val FROM o_key_val WHERE s_key = ?", [s_key]);
+   return o_row ? o_row.s_val : null;
+};
+
 let f_a_o_key_val = function (s_prefix) {
    if (s_prefix) {
       return f_a_o_query("SELECT s_key, s_val FROM o_key_val WHERE s_key LIKE ? ORDER BY s_key", [
@@ -48,4 +53,4 @@ let f_register = function () {
    });
 };
 
-export { f_register };
+export { f_register, f_s_val, f_set };

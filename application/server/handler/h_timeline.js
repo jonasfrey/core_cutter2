@@ -108,4 +108,8 @@ let f_register = function () {
    });
 };
 
-export { f_register };
+let f_n_ms__playhead = function (n_o_project_n_id) {
+   return f_o_state(n_o_project_n_id).n_ms__playhead;
+};
+
+export { f_n_ms__playhead, f_o_cursor, f_register };

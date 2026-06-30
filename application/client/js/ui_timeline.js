@@ -9,6 +9,7 @@ import {
    f_subscribe,
    o_data,
 } from "./f_timeline.js";
+import { f_on_highlight, f_subscribe as f_subscribe__section } from "./f_section.js";
 
 // Renders the project's videos along one zoomable track. The playhead position is
 // read from the shared timeline module (single source of truth), never stored
@@ -20,10 +21,15 @@ let el_grid = null;
 let el_playhead = null;
 let el_cursor = null;
 let el_tooltip = null;
+let el_highlight = null;
 let el_empty = null;
 let el_zoom = null;
 let el_zoom_val = null;
 let a_o_block = [];
+let a_o_marker = [];
+let a_o_section = [];
+let o_sec__cur = { a_o_video_section: [], a_n_ms__marker: [] };
+let o_highlight = null;
 let b_scrubbing = false;
 let n_t__seek_last = 0;
 
@@ -119,8 +125,74 @@ let f_layout = function () {
       o_block.el.style.left = n_left + "%";
       o_block.el.style.width = n_width + "%";
    });
+   a_o_section.forEach(function (o_section) {
+      let n_left = ((o_section.n_ms__start - n_ms__view_start) / n_ms__span) * 100;
+      let n_width = ((o_section.n_ms__end - o_section.n_ms__start) / n_ms__span) * 100;
+      o_section.el.style.left = n_left + "%";
+      o_section.el.style.width = n_width + "%";
+   });
+   a_o_marker.forEach(function (o_marker) {
+      let n_left = ((o_marker.n_ms - n_ms__view_start) / n_ms__span) * 100;
+      o_marker.el.style.left = n_left + "%";
+      o_marker.el.style.display = (n_left < 0 || n_left > 100) ? "none" : "block";
+   });
+   if (o_highlight && o_highlight.n_ms__end > o_highlight.n_ms__start) {
+      let n_left = ((o_highlight.n_ms__start - n_ms__view_start) / n_ms__span) * 100;
+      let n_width = ((o_highlight.n_ms__end - o_highlight.n_ms__start) / n_ms__span) * 100;
+      el_highlight.style.left = n_left + "%";
+      el_highlight.style.width = n_width + "%";
+      el_highlight.style.display = "block";
+   } else {
+      el_highlight.style.display = "none";
+   }
    let n_pct__playhead = ((f_n_ms__playhead() - n_ms__view_start) / n_ms__span) * 100;
    el_playhead.style.left = Math.max(0, Math.min(100, n_pct__playhead)) + "%";
+};
+
+// global ms offset where a video starts in the project timeline
+let f_n_ms__video_start = function (n_o_video_n_id) {
+   let n_acc = 0;
+   let a_o_video = o_data.a_o_video || [];
+   for (let n_idx = 0; n_idx < a_o_video.length; n_idx++) {
+      if (a_o_video[n_idx].n_id === n_o_video_n_id) return n_acc;
+      n_acc += a_o_video[n_idx].n_ms__duration || 0;
+   }
+   return null;
+};
+
+// rebuild section highlights + marker ticks from the shared section state
+let f_overlay_build = function () {
+   if (!el_track) return;
+   a_o_section.forEach(function (o) {
+      o.el.remove();
+   });
+   a_o_marker.forEach(function (o) {
+      o.el.remove();
+   });
+   a_o_section = [];
+   a_o_marker = [];
+
+   (o_sec__cur.a_o_video_section || []).forEach(function (o_s) {
+      let n_off = f_n_ms__video_start(o_s.n_o_video_n_id);
+      if (n_off === null) return;
+      let el = document.createElement("div");
+      el.className = "el_section";
+      el_track.appendChild(el);
+      a_o_section.push({
+         el,
+         n_ms__start: n_off + o_s.n_ms__start,
+         n_ms__end: n_off + o_s.n_ms__end,
+      });
+   });
+
+   (o_sec__cur.a_n_ms__marker || []).forEach(function (n_ms) {
+      let el = document.createElement("div");
+      el.className = "el_marker";
+      el_track.appendChild(el);
+      a_o_marker.push({ el, n_ms });
+   });
+
+   f_layout();
 };
 
 // rebuild the video blocks (only needed when the set of videos changes)
@@ -133,6 +205,7 @@ let f_render = function (o_data__in) {
    if (a_o_video.length === 0 || f_n_ms__total() <= 0) {
       el_empty.style.display = "block";
       el_track.appendChild(el_grid);
+      el_track.appendChild(el_highlight);
       el_track.appendChild(el_cursor);
       el_track.appendChild(el_playhead);
       el_track.appendChild(el_tooltip);
@@ -155,10 +228,11 @@ let f_render = function (o_data__in) {
    });
 
    el_track.appendChild(el_grid);
+   el_track.appendChild(el_highlight);
    el_track.appendChild(el_cursor);
    el_track.appendChild(el_playhead);
    el_track.appendChild(el_tooltip);
-   f_layout();
+   f_overlay_build();
 };
 
 let f_n_ms__from_evt = function (o_evt) {
@@ -297,7 +371,12 @@ let f_init = function (el_body) {
    el_playhead = document.createElement("div");
    el_playhead.className = "el_playhead";
 
+   el_highlight = document.createElement("div");
+   el_highlight.className = "el_highlight";
+   el_highlight.style.display = "none";
+
    el_track.appendChild(el_grid);
+   el_track.appendChild(el_highlight);
    el_track.appendChild(el_cursor);
    el_track.appendChild(el_playhead);
    el_track.appendChild(el_tooltip);
@@ -309,6 +388,14 @@ let f_init = function (el_body) {
    // structural changes (video set / seek / play) rebuild blocks; ticks and zoom
    // just reposition using the shared playhead value.
    f_subscribe(f_render);
+   f_subscribe__section(function (o_sec) {
+      o_sec__cur = o_sec;
+      f_overlay_build();
+   });
+   f_on_highlight(function (o_range) {
+      o_highlight = o_range;
+      f_layout();
+   });
    f_on_tick(function () {
       f_layout();
    });

@@ -8,6 +8,7 @@ import { f_register as f_register__fsnode } from "./handler/h_fsnode.js";
 import { f_register as f_register__video, f_s_path_abs__video } from "./handler/h_video.js";
 import { f_register as f_register__keyval } from "./handler/h_keyval.js";
 import { f_register as f_register__timeline } from "./handler/h_timeline.js";
+import { f_register as f_register__section } from "./handler/h_section.js";
 
 let s_dir__server = new URL(".", import.meta.url).pathname;
 let s_dir__app = new URL("../", import.meta.url).pathname;
@@ -27,6 +28,7 @@ f_register__fsnode();
 f_register__video();
 f_register__keyval();
 f_register__timeline();
+f_register__section();
 
 let o_type_by_ext = {
    html: "text/html; charset=utf-8",

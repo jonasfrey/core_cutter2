@@ -6,11 +6,14 @@ import { f_init as f_init__project } from "./ui_project.js";
 import { f_init as f_init__filebrowser } from "./ui_filebrowser.js";
 import { f_init as f_init__player } from "./ui_player.js";
 import { f_init as f_init__timeline } from "./ui_timeline.js";
+import { f_init as f_init__section } from "./ui_section.js";
+import "./f_section.js"; // register ctrl+m / ctrl+d shortcuts app-wide
 
 f_window_register("window_project", "Projects", f_init__project);
 f_window_register("window_file", "Files", f_init__filebrowser);
 f_window_register("window_player", "Player", f_init__player);
 f_window_register("window_timeline", "Timeline", f_init__timeline);
+f_window_register("window_section", "Sections", f_init__section);
 
 document.querySelectorAll("#el_topbar [data-s_window]").forEach(function (el_btn) {
    el_btn.addEventListener("click", function () {

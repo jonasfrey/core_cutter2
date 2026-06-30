@@ -257,6 +257,7 @@ html, body {
    position: absolute;
    top: 0;
    height: 100%;
+   z-index: 1;
    background: #2d3a4a;
    border-right: 1px solid #111;
    color: #cdd;
@@ -271,13 +272,40 @@ html, body {
 .el_block__alt {
    background: #354a3a;
 }
-.el_playhead {
+.el_grid {
+   z-index: 2;
+}
+.el_section {
+   position: absolute;
+   top: 0;
+   height: 100%;
+   z-index: 3;
+   background: rgba(90, 200, 130, 0.28);
+   border-left: 2px solid rgba(120, 230, 160, 0.9);
+   border-right: 2px solid rgba(120, 230, 160, 0.9);
+   box-sizing: border-box;
+   pointer-events: none;
+}
+.el_marker {
    position: absolute;
    top: 0;
    left: 0;
    width: 2px;
    height: 100%;
-   background: #ff5252;
+   z-index: 4;
+   background: #ffd54a;
+   pointer-events: none;
+}
+.el_highlight {
+   position: absolute;
+   top: 0;
+   left: 0;
+   height: 100%;
+   z-index: 5;
+   background: rgba(255, 255, 255, 0.22);
+   border-left: 2px solid #fff;
+   border-right: 2px solid #fff;
+   box-sizing: border-box;
    pointer-events: none;
 }
 .el_cursor {
@@ -286,8 +314,32 @@ html, body {
    left: 0;
    width: 1px;
    height: 100%;
+   z-index: 5;
    background: rgba(255, 255, 255, 0.55);
    pointer-events: none;
+}
+.el_playhead {
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 2px;
+   height: 100%;
+   z-index: 6;
+   background: #ff5252;
+   pointer-events: none;
+}
+.el_hint {
+   font-size: 11px;
+   color: #888;
+   margin-bottom: 6px;
+}
+.el_section_title {
+   font-size: 11px;
+   text-transform: uppercase;
+   letter-spacing: 0.05em;
+   color: #7a8;
+   margin: 8px 0 4px;
+   border-bottom: 1px solid #333;
 }
 .el_tooltip {
    position: absolute;
