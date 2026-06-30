@@ -60,4 +60,4 @@ let f_use_window = function () {
    return { o_window, f_ensure, f_persist, f_front, f_toggle };
 };
 
-export { f_use_window };
+export { f_toggle, f_use_window };

@@ -30,3 +30,10 @@ a range slider for the 'zoom' from 2 seconds to 30 minutes.
  buttons for zoom presets , 10sec ,2 min, 10 min.  
 
 by clicking into the playhead timeline the video and playhead should jump to the clicked position. 
+
+
+
+export functionalities. 
+select resolution
+select frames per second
+select format and set a name 

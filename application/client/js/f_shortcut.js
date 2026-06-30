@@ -47,4 +47,4 @@ globalThis.addEventListener("keydown", function (o_evt) {
    }
 });
 
-export { a_o_action, f_action_register, f_set_shortcut };
+export { a_o_action, f_action_register, f_s_combo, f_set_shortcut };

@@ -14,6 +14,8 @@ let a_s_module = [
    "../client/js/components/PanelPlayer.js",
    "../client/js/components/PanelTimeline.js",
    "../client/js/components/PanelSection.js",
+   "../client/js/components/PanelSetting.js",
+   "../client/js/components/PanelExport.js",
 ];
 
 Deno.test("client component templates compile", async function () {

@@ -6,6 +6,8 @@ import { f_use_window } from "../store/use_window.js";
 import "../store/use_project.js";
 import "../store/use_timeline.js";
 import "../store/use_section.js"; // registers ctrl+m / ctrl+d
+import "../store/use_setting.js"; // loads persisted shortcut overrides
+import "../store/use_export.js"; // registers ctrl+s, loads export settings
 import "../f_shortcut.js";
 import WindowFrame from "./WindowFrame.js";
 import PanelProject from "./PanelProject.js";
@@ -13,6 +15,8 @@ import PanelFile from "./PanelFile.js";
 import PanelPlayer from "./PanelPlayer.js";
 import PanelTimeline from "./PanelTimeline.js";
 import PanelSection from "./PanelSection.js";
+import PanelSetting from "./PanelSetting.js";
+import PanelExport from "./PanelExport.js";
 
 let a_o_window__def = [
    { s_window: "window_project", s_title: "Projects", o_component: PanelProject },
@@ -20,6 +24,8 @@ let a_o_window__def = [
    { s_window: "window_player", s_title: "Player", o_component: PanelPlayer },
    { s_window: "window_timeline", s_title: "Timeline", o_component: PanelTimeline },
    { s_window: "window_section", s_title: "Sections", o_component: PanelSection },
+   { s_window: "window_setting", s_title: "Settings", o_component: PanelSetting },
+   { s_window: "window_export", s_title: "Export", o_component: PanelExport },
 ];
 
 export default {

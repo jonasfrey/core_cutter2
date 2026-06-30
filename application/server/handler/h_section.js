@@ -134,4 +134,4 @@ let f_register = function () {
    });
 };
 
-export { f_register };
+export { f_a_o_video_section, f_register };
