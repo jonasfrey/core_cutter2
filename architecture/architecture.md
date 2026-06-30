@@ -4,12 +4,16 @@ Tech stack:
 Programming language: preferabbly Deno.js everywhere where possible (no TypeScript, pure JavaScript), coding guidelines in [](coding_guidelines.md)
 executables can be used (ffmpeg, custom pytho scripts )
 database: SQLite database for persistence
-Client: Vanilla JavaScript + HTML
+Client: Vue JavaScript + VueJS (only compositions API) + HTML
 communcation: WebSocket for real-time client-server communication
 testing: 
 client UI smoke tests
 server side code: denojs test scripts
 server side executables: test directly over CLI
+
+deno task commands:
+use 'deno task start' as a general way to start the app. this should also install dependencies like (ffmpeg and other) if they are not yet installed. it should also download testdata if the app needs some data for testing (videos, images, other data)
+'deno task rmdb' should clean the database 
 
 Imporant GUI things to consider: 
 see also [](UI.md)

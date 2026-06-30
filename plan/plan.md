@@ -28,10 +28,15 @@ speed slider −10…+10x (rAF loop, forward via `playbackRate`, reverse by step
 cursor + timecode tooltip. Single source of truth for the playhead lives in the
 shared client timeline module.
 
-**Next — Phase 3 (sections):** `ctrl+m` marker flow → `o_video_section`, `ctrl+d`
-nearest-marker delete, section overlays on the timeline, section list/edit.
-Then **Phase 4** (shortcut registry + Settings, persisted in `o_key_val`),
-**Phase 5** (export: ffmpeg trim per section + concat → mp4/h264), **Phase 6** (polish).
+**Done — Phase 3 (sections):** transient server-side markers per project; `ctrl+m`
+adds a marker / forms an `o_video_section` from two markers; `ctrl+d` deletes the
+marker nearest the playhead; section + marker overlays on the timeline (green
+highlights, yellow ticks); a **Sections** window listing clips with delete; a
+reusable keyboard-shortcut dispatcher (`f_shortcut.js`) ready for Phase 4.
+
+**Next — Phase 4** (shortcut registry UI + Settings window, persisted in `o_key_val`),
+then **Phase 5** (export: ffmpeg trim per section + concat → mp4/h264),
+**Phase 6** (polish).
 
 **Known follow-ups / not yet done:** in-browser visual verification of the player
 (built to spec, validated by logic + server contracts, not yet driven in a real
